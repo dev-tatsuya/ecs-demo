@@ -79,18 +79,18 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
-#     - name: Fill in the new image ID in the Amazon ECS task definition
-#       id: front-task-def
-#       uses: aws-actions/amazon-ecs-render-task-definition@v1
-#       with:
-#         task-definition: task-definition.json
-#         container-name: sample-app
-#         image: ${{ steps.build-web-image.outputs.image }}
+    - name: Fill in the new front image ID in the Amazon ECS task definition
+      id: front-task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: terraform/tasks/front-task-def.json
+        container-name: flutter
+        image: ${{ steps.build-front-image.outputs.image }}
 
-#     - name: Deploy Amazon ECS task definition
-#       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-#       with:
-#         task-definition: ${{ steps.front-task-def.outputs.task-definition }}
-#         service: sample-app-service
-#         cluster: default
-#         wait-for-service-stability: true
+    - name: Deploy Amazon ECS front task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ steps.front-task-def.outputs.task-definition }}
+        service: dojo-stg-front
+        cluster: dojo-stg
+        wait-for-service-stability: true
