@@ -50,7 +50,7 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Build, tag, and push front image to Amazon ECR
-      id: build-front-image
+      id: build_front_image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: dojo-stg/web
@@ -65,7 +65,7 @@ jobs:
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
     - name: Build, tag, and push back image to Amazon ECR
-        id: build-back-image
+        id: build_back_image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: dojo-stg/api
