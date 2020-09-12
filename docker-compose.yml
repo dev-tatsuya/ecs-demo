@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  api:
+    build: backend/.
+    container_name: ecs-api
+    ports:
+      - 8081:8080
+    volumes:
+      - .:/go/src/ecs-demo
