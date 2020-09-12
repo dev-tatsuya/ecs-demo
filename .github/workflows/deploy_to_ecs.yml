@@ -87,10 +87,26 @@ jobs:
         container-name: flutter
         image: ${{ steps.build-front-image.outputs.image }}
 
+    - name: Fill in the new back image ID in the Amazon ECS task definition
+      id: back-task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: terraform/tasks/back-task-def.json
+        container-name: go
+        image: ${{ steps.build-back-image.outputs.image }}
+
     - name: Deploy Amazon ECS front task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.front-task-def.outputs.task-definition }}
         service: dojo-stg-front
+        cluster: dojo-stg
+        wait-for-service-stability: true
+
+    - name: Deploy Amazon ECS back task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ steps.back-task-def.outputs.task-definition }}
+        service: dojo-stg-back
         cluster: dojo-stg
         wait-for-service-stability: true

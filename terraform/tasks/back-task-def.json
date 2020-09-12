@@ -5,25 +5,25 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/dojo-stg-front-task-def",
+          "awslogs-group": "/ecs/dojo-stg-back-task-def",
           "awslogs-region": "ap-northeast-1",
           "awslogs-stream-prefix": "ecs"
         }
       },
       "portMappings": [
         {
-          "hostPort": 80,
+          "hostPort": 8080,
           "protocol": "tcp",
-          "containerPort": 80
+          "containerPort": 8080
         }
       ],
       "memoryReservation": 128,
-      "image": "nginx",
-      "name": "flutter"
+      "image": "golang:1.13-alpine3.12",
+      "name": "go"
     }
   ],
   "memory": "512",
-  "family": "dojo-stg-front-task-def",
+  "family": "dojo-stg-back-task-def",
   "requiresCompatibilities": [
     "FARGATE"
   ],
