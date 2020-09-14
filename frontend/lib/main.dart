@@ -10,7 +10,7 @@ const DevEnv = {
 
 const ProdEnv = {
   'isProd': true,
-  'apiBaseUri': 'api.influ-dojo-stg.work:8080',
+  'apiBaseUri': 'https://api.influ-dojo-stg.work',
 };
 
 final env = isProd ? ProdEnv : DevEnv;
