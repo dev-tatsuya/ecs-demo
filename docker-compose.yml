@@ -2,7 +2,9 @@ version: '3'
 
 services:
   api:
-    build: backend/.
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
     container_name: ecs-api
     ports:
       - 8081:8080
