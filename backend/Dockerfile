@@ -7,6 +7,7 @@ ENV GO111MODULE=on \
     TZ=Asia/Tokyo
 
 WORKDIR /go/src/ecs-demo
+COPY . /go/src/ecs-demo
 
 CMD ["realize", "start", "--name=api"]
 
